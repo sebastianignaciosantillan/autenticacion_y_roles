@@ -1,0 +1,18 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+    Hola <strong>{{ request.user.username}}</strong>(usuario registrado)
+    <br>
+    {% include 'partials/logout.html' %}
+    
+
+{% else %}
+    <p>No estas autenticado.</p> <br>
+    <a href="{% url 'login' %}">enlace que lleva a vista de login -></a> <br>
+{% endif %}
+    <br>
+    <button class="btn btn-sm btn-primary">Probando estilo de boostrap 5</button>
+
+{% endblock %}
