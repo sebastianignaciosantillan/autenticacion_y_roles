@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import CustomUserCreationForm, CustomLoginForm
 from django.contrib.auth.decorators import login_required
 from .decorators import administrador_required, supervisor_required, empleado_required
-
+from .forms import EntrenadorForms
 
 # Create your views here.
 #entrada publica (landing page, home etc)
@@ -12,7 +12,6 @@ def index(request):
         
     })
     
-
 # ****************  AUTH  ******************
 def login_view(request):
     if request.method == 'POST':
@@ -71,11 +70,25 @@ def supervisor_dashboard(request):
 def empleado_dashboard(request):
     return render(request, 'dashboards/empleado.html')
 
+
+@login_required
+def redireccionar_dashboard(request):
+    user = request.user
+    if user.is_administrador():
+        return redirect('admin_dashboard')
+    elif user.is_supervisor():
+        return redirect('supervisor_dashboard')
+    elif user.is_empleado():
+        return redirect('empleado_dashboard')
+    else:
+        # Redireccionar a alguna página de error o logout si no tiene rol válido
+        return redirect('logout')  # o algún 403
+
+
 #vista para error de acceso denegado
 
 def acceso_denegado(request):
     return render(request, 'errors/acceso_denegado.html',{
         
     })    
-    
     

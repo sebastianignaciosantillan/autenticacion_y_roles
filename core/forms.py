@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import CustomUser
+from .models import CustomUser, Entrenador
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -17,3 +17,10 @@ class CustomLoginForm(AuthenticationForm):
         'class': 'w-full px-4 py-2 border rounded focus:outline-none focus:ring',
         'placeholder': 'Contraseña',
     }))
+    
+    
+
+
+class EntrenadorForms(forms.ModelForm):
+    class Meta:
+        model : Entrenador
